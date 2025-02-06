@@ -1,0 +1,25 @@
+name: compile program
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  compile-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: compile program
+        run: |
+          make
+          if [ $? -eq 0 ]; then
+            echo "Compilation success"
+            exit 0
+          else
+            echo "Compilation failed"
+            exit 1
+          fi
